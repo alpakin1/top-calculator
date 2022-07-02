@@ -7,7 +7,25 @@
     padding: 8px;
 }
 
+.calculator {
+    border: 2px solid blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+    padding: 8px;
+}
+
 .display {
-    display: inline-block;
+    background-color: white;
+    min-height: 32px;
+    min-width: 112px;
     border: 2px solid red;
+    margin-bottom: 8px;
+}
+
+.operator {
+    background-color: white;
+    border: none;
 }

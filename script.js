@@ -1,41 +1,3 @@
-// Basic Operators //
-function add(num1, num2) {
-    return num1 + num2;
-}
-
-function subtract(num1, num2) {
-    return num1 - num2;
-}
-
-function multiply(num1, num2) {
-    return num1 * num2;
-}
-
-function divide (num1, num2) {
-    return num1 / num2;
-}
-// Basic Operators //
-
-let displayValue = [];
-let operatorInput;
-
-function operate(operatorInput, inputOne, inputTwo) {
-    if (operatorInput == 'add') {
-        add(inputOne, inputTwo);
-    } else if (operatorInput == 'subtract') {
-        subtract(inputOne, inputTwo);
-    } else if (operatorInput == 'multiply') {
-        multiply(inputOne, inputTwo);
-    } else if (operatorInput == 'divide') {
-        divide(inputOne, inputTwo);
-    }
-}
-
-function clearDisplay () {
-    display.textContent = '';
-}
-
-
 // Buttons //
 let one = document.querySelector('#one');
 let two = document.querySelector('#two');
@@ -56,59 +18,220 @@ let divider = document.querySelector('#slash');
 let display = document.querySelector('.display');
 // Buttons //
 
+let firstOperand = null;
+let secondOperand = null;
+let displayValue = null;
+let firstOperator = null;
+let secondOperator = null;
+let result;
+
+// Operation //
+function operate(operatorInput, num1, num2) {
+    if (operatorInput == '+') {
+        return num1 + num2;
+    } else if (operatorInput == '-') {
+        return num1 - num2;
+    } else if (operatorInput == '*') {
+        return num1 * num2;
+    } else if (operatorInput == '/') {
+        return num1 / num2;
+    }
+}
+// Operation //
+
+
+function updateDisplay () {
+    display.innerText = displayValue;
+}
+
+
+
+
 // Event Listeners //
 one.addEventListener('click', function() {
-    display.textContent += 1
+    if (displayValue == null) {
+        displayValue = '';
+    }
+    displayValue += '1';
+    updateDisplay();
 });
 two.addEventListener('click', function() {
-    display.textContent += 2
+    if (displayValue == null) {
+        displayValue = '';
+    }
+    displayValue += '2';
+    updateDisplay();
 });
 three.addEventListener('click', function() {
-    display.textContent += 3
+    if (displayValue == null) {
+        displayValue = '';
+    }
+    displayValue += '3';
+    updateDisplay();
 });
 four.addEventListener('click', function() {
-    display.textContent += 4
+    if (displayValue == null) {
+        displayValue = '';
+    }
+    displayValue += '4';
+    updateDisplay();
 });
 five.addEventListener('click', function() {
-    display.textContent += 5
+    if (displayValue == null) {
+        displayValue = '';
+    }
+    displayValue += '5';
+    updateDisplay();
 });
 six.addEventListener('click', function() {
-    display.textContent += 6
+    if (displayValue == null) {
+        displayValue = '';
+    }
+    displayValue += '6';
+    updateDisplay();
 });
 seven.addEventListener('click', function() {
-    display.textContent += 7
+    if (displayValue == null) {
+        displayValue = '';
+    }
+    displayValue += '7';
+    updateDisplay();
 });
 eight.addEventListener('click', function() {
-    display.textContent += 8
+    if (displayValue == null) {
+        displayValue = '';
+    }
+    displayValue += '8';
+    updateDisplay();
 });
 nine.addEventListener('click', function() {
-    display.textContent += 9
+    if (displayValue == null) {
+        displayValue = '';
+    }
+    displayValue += '9';
+    updateDisplay();
 });
 zero.addEventListener('click', function() {
-    display.textContent += 0
+    if (displayValue == null) {
+        displayValue = '';
+    }
+    displayValue += '0';
+    updateDisplay();
 });
 adder.addEventListener('click', function() {
-    displayValue.push(0);
-    displayValue.push(parseInt(display.textContent.trim('')));
-    let result = add(displayValue[0], displayValue[1]);
-    display.textContent = result;
-    console.log(result);
+    if (firstOperator != null && secondOperator == null) {
+        secondOperator = '+';
+        secondOperand = Number(displayValue);
+        result = operate(firstOperator, firstOperand, secondOperand);
+        firstOperand = result;
+        displayValue = firstOperand;
+        displayValue = '';
+        updateDisplay();
+    } else if (firstOperator != null && secondOperator != null) {
+        secondOperand = Number(displayValue);
+        result = operate(secondOperator, firstOperand, secondOperand);
+        secondOperator = '+';
+        displayValue = result;
+        firstOperand = displayValue;
+        displayValue = '';
+        updateDisplay();
+    } else {
+        firstOperator = '+';
+        firstOperand = Number(displayValue);
+        displayValue = '';
+        updateDisplay()
+    }
+    
 });
 subtractor.addEventListener('click', function() {
-    displayValue.push(display.textContent.trim(''));
-    clearDisplay();
-    operatorInput = 'subtract';
-    let result = operate(operatorInput, displayValue[0], displayValue[1]);
-    console.log(result)
+    if (firstOperator != null && secondOperator == null) {
+        // Second Operation //
+        secondOperator = '-';
+        secondOperand = Number(displayValue);
+        result = operate(firstOperator, firstOperand, secondOperand);
+        firstOperand = result;
+        displayValue = firstOperand;
+        displayValue = '';
+        updateDisplay();
+    } else if (firstOperator != null && secondOperator != null) {
+        // Third+ Operation //
+        secondOperand = Number(displayValue);
+        result = operate(secondOperator, firstOperand, secondOperand);
+        secondOperator = '-';
+        displayValue = result;
+        firstOperand = displayValue;
+        displayValue = '';
+        updateDisplay();
+    } else {
+        // First Operation //
+        firstOperator = '-';
+        firstOperand = Number(displayValue);
+        displayValue = '';
+        updateDisplay()
+    }    
 });
 multiplier.addEventListener('click', function() {
-    displayValue = display.textContent.trim('');
-    clearDisplay();
-    operatorInput = 'multiply';
+    if (firstOperator != null && secondOperator == null) {
+        secondOperator = '*';
+        secondOperand = Number(displayValue);
+        result = operate(firstOperator, firstOperand, secondOperand);
+        firstOperand = result;
+        displayValue = firstOperand;
+        displayValue = '';
+        updateDisplay();
+    } else if (firstOperator != null && secondOperator != null) {
+        secondOperand = Number(displayValue);
+        result = operate(secondOperator, firstOperand, secondOperand);
+        secondOperator = '*';
+        displayValue = result;
+        firstOperand = displayValue;
+        displayValue = '';
+        updateDisplay();
+    } else {
+        firstOperator = '*';
+        firstOperand = Number(displayValue);
+        displayValue = '';
+        updateDisplay()
+    }    
 });
 divider.addEventListener('click', function() {
-    displayValue = display.textContent.trim('');
-    clearDisplay();
-    operatorInput = 'divide';
+    if (firstOperator != null && secondOperator == null) {
+        secondOperator = '/';
+        secondOperand = Number(displayValue);
+        result = operate(firstOperator, firstOperand, secondOperand);
+        firstOperand = result;
+        displayValue = firstOperand;
+        updateDisplay();
+    } else if (firstOperator != null && secondOperator != null) {
+        secondOperand = Number(displayValue);
+        result = operate(secondOperator, firstOperand, secondOperand);
+        secondOperator = '/';
+        displayValue = result;
+        firstOperand = displayValue;
+        updateDisplay();
+    } else {
+        firstOperator = '/';
+        firstOperand = Number(displayValue);
+        displayValue = '';
+        updateDisplay()
+    }   
 });
+
+equals.addEventListener('click', function() {
+    if (secondOperator != null) {
+        secondOperand = Number(displayValue);
+        result = operate(secondOperator, firstOperand, secondOperand);
+        displayValue = result;
+        result = firstOperand;
+        updateDisplay();
+    } else {
+        secondOperand = Number(displayValue);
+        result = operate(firstOperator, firstOperand, secondOperand);
+        displayValue = result;
+        secondOperand = null;
+        firstOperator = null;
+        secondOperator = null;
+        updateDisplay();
+    }
+})
 // Event Listeners //
